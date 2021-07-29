@@ -23,7 +23,6 @@ namespace FilmesSeries
             retorno += "Classificação: " + this.Classificacao + Environment.NewLine;
             retorno += "Ano: " + this.Ano + Environment.NewLine;
             retorno += "Duração: " + this.Duracao + Environment.NewLine;
-            retorno += "Excluído: " + this.Excluido + Environment.NewLine;
             return retorno;
         }
 
