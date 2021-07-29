@@ -19,8 +19,20 @@ namespace FilmesSeries
                     case "2":
                         InserirFilme();
                         break;
+                    case "3":
+                        AtualizarFilme();
+                        break;
+                    case "4":
+                        ExcluirFilme();
+                        break;
+                    case "5":
+                        VisualizarFilme();
+                        break;
+                    case "C":
+                        Console.Clear();
+                        break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException("Informe uma opção válida.");
                 }
                 opcaoUsuario = ObterOpcaoUsuario();
             }
@@ -86,6 +98,55 @@ namespace FilmesSeries
                                         ano: entradaAno,
                                         duracao: entradaDuracao);
             repositorio.Insere(novoFilme);
+        }
+
+        private static void AtualizarFilme(){
+            Console.WriteLine("Atualizar filme");
+            Console.WriteLine("Informe o ID do filme que deseja atualizar: ");
+            int indiceFilme = int.Parse(Console.ReadLine());
+
+            foreach (int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1} ", i, Enum.GetName(typeof(Genero), i));
+            }
+            Console.WriteLine("Digite o gênero entre as opções acima: ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Informe o título: ");
+            string entradaTitulo = Console.ReadLine();
+
+            Console.WriteLine("Informe a classificação: ");
+            int entradaClassificacao = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Informe o ano de lançamento: ");
+            int entradaAno = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Informe a duração do filme: ");
+            string entradaDuracao = Console.ReadLine();
+
+            Filme atualizaFilme = new Filme(id: indiceFilme,
+                                            genero: (Genero) entradaGenero,
+                                            titulo: entradaTitulo,
+                                            classificacao: entradaClassificacao,
+                                            ano: entradaAno,
+                                            duracao: entradaDuracao);
+            repositorio.Atualiza(indiceFilme, atualizaFilme);
+        }
+
+        private static void ExcluirFilme(){
+            Console.WriteLine("Informe o ID do filme que deseja excluir: ");
+            int indiceFilme = int.Parse(Console.ReadLine());
+
+            repositorio.Exclui(indiceFilme);
+        }
+
+        private static void VisualizarFilme(){
+            Console.WriteLine("Informe o ID do filme que deseja visualizar: ");
+            int indiceFilme = int.Parse(Console.ReadLine());
+
+            var filme = repositorio.RetornaPorId(indiceFilme);
+            Console.WriteLine();
+            Console.WriteLine(filme);
         }
     }
 }
